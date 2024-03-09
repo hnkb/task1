@@ -7,6 +7,11 @@ body {
     font-style: normal;
 }
 
+.play-state {
+    text-align: center;
+    margin: 1em;
+}
+
 
 
 .grid {
@@ -44,6 +49,7 @@ body {
 .person {
     position: absolute;
     height: 20px;
+    transition: all 0.1s;
 }
 
 
@@ -73,6 +79,11 @@ body {
 
 .tasks li.active {
     color: #da6;
+}
+
+.tasks li.done {
+    color: #8b3;
+    text-decoration: line-through;
 }
 
 .tasks li.impossible {

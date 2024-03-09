@@ -29,10 +29,10 @@ export function addToDOM(map, taskList, updateUI) {
     grid.addEventListener('click', (event) => {
         const target = event.target.closest('.cell');
         if (target) {
-            const r = target.dataset.row;
-            const c = target.dataset.col;
+            const r = parseInt(target.dataset.row);
+            const c = parseInt(target.dataset.col);
             const cell = map.cells[r][c];
-            console.log(target, cell);
+            // console.log(target, cell);
 
             if (cell.terrain === 'grass') {
                 taskList.addTask(new Task(cell.resource ? `Harvest ${cell.resource}` : 'Go to', r, c));
