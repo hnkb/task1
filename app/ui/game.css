@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    font-family: 'Overpass', sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+
+
+
 .grid {
     line-height: 10px;
     width: max-content;
@@ -23,4 +34,29 @@
 .cell img {
     max-width: 100%;
     max-height: 100%;
+}
+
+
+
+.tasks {
+    position: fixed;
+    right: 8px;
+    bottom: 8px;
+    height: 240px;
+    width: 200px;
+    overflow-y: scroll;
+
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tasks ul {
+    margin: 0;
+    padding: 1em;
+
+    list-style: none;
+}
+
+.tasks li {
+    margin: 4px 0;
 }
