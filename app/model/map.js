@@ -4,6 +4,12 @@ class Cell {
     resource = null;
 }
 
+let seed = 1234;
+function seededRandom() {
+    const x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
+}
+
 export class Map {
     constructor(height, width) {
         this.height = height;
@@ -31,7 +37,7 @@ export class Map {
                     cell.terrain = "water";
                 } else {
                     // Optionally add resources to some grass cells
-                    const resourceChance = Math.random();
+                    const resourceChance = seededRandom();// Math.random();
                     if (resourceChance > 0.95) {
                         cell.resource = "rock";
                     } else if (resourceChance > 0.9) {

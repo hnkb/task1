@@ -5,6 +5,8 @@ export function addToDOM(map) {
     const gridDOM = document.createElement('div');
     gridDOM.className = 'grid';
 
+    let serial = 0;
+
     for (const row of map.cells) {
         const outRow = [];
         const rowDOM = document.createElement('div');
@@ -15,9 +17,11 @@ export function addToDOM(map) {
         for (const cell of row) {
             const cellDOM = document.createElement('div');
             cellDOM.className = `cell ${cell.terrain}`;
-            cellDOM.innerHTML = cell.resource;
+            cellDOM.innerHTML = cell.resource ? `<img src="assets/${cell.resource}_${(serial % 9) + 1}.svg" />` : '';
             rowDOM.appendChild(cellDOM);
             outRow.push(cellDOM);
+
+            serial++;
         }
     }
 

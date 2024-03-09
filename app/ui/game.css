@@ -19,3 +19,8 @@
 .cell.water {
     background-color: rgb(101, 194, 220);
 }
+
+.cell img {
+    max-width: 100%;
+    max-height: 100%;
+}
