@@ -4,6 +4,7 @@ export class Task {
         this.name = name;
         this.row = row;
         this.col = col;
+        this.state = '';
     }
 }
 

@@ -60,3 +60,12 @@ body {
 .tasks li {
     margin: 4px 0;
 }
+
+.tasks li.active {
+    color: #da6;
+}
+
+.tasks li.impossible {
+    color: #d54;
+    text-decoration: line-through;
+}

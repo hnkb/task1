@@ -5,6 +5,7 @@ export function updateTaskList(taskList) {
     for (const task of taskList.tasks) {
         const item = document.createElement('li');
         item.textContent = `${task.name} (${task.row}, ${task.col})`;
+        item.className = task.state;
         list.appendChild(item);
     }
 }
