@@ -1,0 +1,21 @@
+.grid {
+    line-height: 10px;
+    width: max-content;
+    overflow: scroll;
+}
+
+.cell {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: .5px;
+    overflow: hidden;
+}
+
+.cell.grass {
+    background-color: rgb(146, 194, 63);
+}
+
+.cell.water {
+    background-color: rgb(101, 194, 220);
+}
