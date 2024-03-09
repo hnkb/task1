@@ -1,10 +1,19 @@
 import { Map } from './model/map.js';
-import { TaskList } from './model/task.js';
+import { Person } from './model/person.js';
 import { addToDOM } from './ui/map.js';
+import { drawPerson } from './ui/person.js';
+import { updateTaskList } from './ui/task.js';
 
-let map = new Map(30, 40);
+const map = new Map(30, 40);
 map.load();
 
-const taskList = new TaskList();
+const eve = new Person('Eve', 20);
 
-addToDOM(map, taskList);
+const updateUI = () => {
+    eve.tick();
+    drawPerson(eve);
+    updateTaskList(eve.taskList);
+};
+
+addToDOM(map, eve.taskList, updateUI);
+updateUI();

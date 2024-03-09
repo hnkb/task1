@@ -1,8 +1,7 @@
 
 import { Task } from '../model/task.js';
-import { updateTaskList } from './task.js';
 
-export function addToDOM(map, taskList) {
+export function addToDOM(map, taskList, updateUI) {
     const grid = document.createElement('div');
     grid.className = 'grid';
 
@@ -37,8 +36,10 @@ export function addToDOM(map, taskList) {
 
             if (cell.terrain === 'grass') {
                 taskList.addTask(new Task(cell.resource ? `Harvest ${cell.resource}` : 'Go to', r, c));
-                updateTaskList(taskList);
+                updateUI();
             }
         }
     });
+
+    // return { offset: { x: grid.offsetLeft, y: grid.offsetTop }, size: { x: grid.offsetWidth / map.width, y: grid.offsetHeight / map.height } };
 }
