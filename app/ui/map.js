@@ -37,7 +37,7 @@ export function drawMap(ui) {
             // console.log(target, cell);
 
             if (cell.terrain === 'grass') {
-                ui.eve.taskList.addTask(new Task(cell.resource ? `Harvest ${cell.resource}` : 'Go to', r, c));
+                ui.eve.taskList.addTask(cell.resource ? 'extract' : 'goto', r, c, cell);
                 ui.update();
             }
         }

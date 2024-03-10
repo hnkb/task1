@@ -7,7 +7,7 @@ export function updateTaskList(taskList) {
     for (let i = taskList.tasks.length - 1; i >= 0; i--) {
         const task = taskList.tasks[i];
         const item = document.createElement('li');
-        item.textContent = `${task.name} (${task.row}, ${task.col})`;
+        item.textContent = task.name + (task.amount ? ` (${Math.round(task.amount * 100)}%)` : '');
         item.className = task.state;
         fragment.appendChild(item);
     }

@@ -77,7 +77,7 @@ body {
     margin: 4px 0;
 }
 
-.tasks li.active {
+.tasks li.moving, .tasks li.doing {
     color: #da6;
 }
 
