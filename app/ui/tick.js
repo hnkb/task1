@@ -2,7 +2,7 @@
 const speed = 4;
 const interval = 100;
 
-export function setupTimer(func) {
+export function setupTimer(ui) {
     let tickTimer;
     let lastTick;
     
@@ -23,7 +23,8 @@ export function setupTimer(func) {
                     const now = performance.now();
                     const elapsed = (now - lastTick) / 1000 * speed;
                     lastTick = now;
-                    func(elapsed);
+                    ui.world.tick(elapsed);
+                    ui.update();
                 }, interval);
                 playState.textContent = 'Play';
             }

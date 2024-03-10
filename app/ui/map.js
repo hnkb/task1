@@ -1,7 +1,9 @@
 
 import { Task } from '../model/task.js';
 
-export function addToDOM(map, taskList, updateUI) {
+export function drawMap(ui) {
+    const map = ui.world.map;
+
     const grid = document.createElement('div');
     grid.className = 'grid';
 
@@ -35,8 +37,8 @@ export function addToDOM(map, taskList, updateUI) {
             // console.log(target, cell);
 
             if (cell.terrain === 'grass') {
-                taskList.addTask(new Task(cell.resource ? `Harvest ${cell.resource}` : 'Go to', r, c));
-                updateUI();
+                ui.eve.taskList.addTask(new Task(cell.resource ? `Harvest ${cell.resource}` : 'Go to', r, c));
+                ui.update();
             }
         }
     });
