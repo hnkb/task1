@@ -1,6 +1,4 @@
 
-import { Task } from '../model/task.js';
-
 export function drawMap(ui) {
     const map = ui.world.map;
 

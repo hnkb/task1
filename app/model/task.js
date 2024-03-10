@@ -1,30 +1,19 @@
 
-const TaskNames = {
-    'extract': 'Harvest',
-    'goto': 'Go to'
-};
-
-export class Task {
-    constructor(type, row, col, cell) {
-        this.type = type;
+class Task {
+    constructor(row, col, cell) {
         this.row = row;
         this.col = col;
         this.cell = cell;
         this.state = '';
-
-        // if (type === 'extract' && !cell?.resource)
-        //     throw new Error('Cannot extract from a cell without a resource');
-        
-        // create a user-friendly name for the task
-        this.name = TaskNames[type];
-        if (type === 'extract') this.name += ` ${cell.resource}`;
-        if (cell) this.name += `${type === 'goto' ? '' : ' at'} (${row}, ${col})`;
+        this.name = `Go to (${row}, ${col})`;
     }
 
     allRequirementsAreMet() {
-        if (this.type === 'extract' && !this.cell.resource)
-            return false;
         return true;
+    }
+
+    action(person, elapsed) {
+        this.state = 'done';
     }
 
     tick(person, elapsed) {
@@ -32,8 +21,8 @@ export class Task {
 
         if (task.state === 'done') return;
 
-        // Step 1: move to location
         const travel = { x: task.col - person.col, y: task.row - person.row };
+
         if (Math.abs(travel.x) < 0.5 && Math.abs(travel.y) < 0.5) {
             task.state = 'doing';
             person.row = task.row;
@@ -46,22 +35,27 @@ export class Task {
             person.col += travel.x * norm;
         }
 
-        // Step 2: perform action
-        if (task.state === 'doing') {
-            switch (task.type) {
-                case 'extract':
-                    task.amount = Math.min(1, (task.amount || 0) + elapsed / 10);
-                    if (task.amount === 1) {
-                        task.state = 'done';
-                        task.cell.resource = null;
-                        // TODO: must update map
-                    }
-                    break;
-                
-                case 'goto':
-                    task.state = 'done';
-                    break;
-            }
+        if (task.state === 'doing')
+            task.action(person, elapsed);
+    }
+}
+
+class ExtractTask extends Task {
+    constructor(row, col, cell) {
+        super(row, col, cell);
+        this.name = `Harvest ${cell.resource} at (${row}, ${col})`;
+    }
+
+    allRequirementsAreMet() {
+        return this.cell.resource === 'tree' || this.cell.resource === 'rock';
+    }
+
+    action(person, elapsed) {
+        this.amount = (this.amount || 0) + elapsed / 10;
+        if (this.amount >= 1) {
+            this.state = 'done';
+            this.cell.resource = null;
+            // TODO: must update map
         }
     }
 }
@@ -72,6 +66,14 @@ export class TaskList {
     }
 
     addTask(type, row, col, cell) {
-        this.tasks.push(new Task(type, row, col, cell));
+        if (type === 'extract') {
+            if (!cell?.resource)
+                throw new Error('Cannot extract from a cell without a resource');
+            this.tasks.push(new ExtractTask(row, col, cell));
+        }
+        else if (type === 'goto')
+            this.tasks.push(new Task(row, col, cell));
+        else
+            throw new Error(`Unknown task type: ${type}`);
     }
 }
