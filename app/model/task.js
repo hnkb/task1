@@ -54,7 +54,7 @@ class ExtractTask extends Task {
         this.amount = (this.amount || 0) + elapsed / 10;
         if (this.amount >= 1) {
             this.state = 'done';
-            this.cell.resource = null;
+            this.cell.resource = this.cell.resource === 'tree' ? 'wood' : 'stone';
         }
     }
 }

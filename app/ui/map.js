@@ -1,9 +1,10 @@
 
 const cellMap = new Map();
 
+const numAssets = { rock: 9, tree: 9, stone: 1, wood: 1 };
 function updateCellInternal(cell, cellDOM, serial) {
     cellDOM.className = `cell ${cell.terrain}`;
-    cellDOM.innerHTML = cell.resource ? `<img src="assets/${cell.resource}_${(serial % 9) + 1}.svg" />` : '';
+    cellDOM.innerHTML = cell.resource ? `<img src="assets/${cell.resource}_${(serial % numAssets[cell.resource]) + 1}.svg" />` : '';
 }
 export function updateCell(cell) {
     const cellDOM = cellMap.get(cell);
@@ -47,7 +48,10 @@ export function drawMap(ui) {
             // console.log(target, cell);
 
             if (cell.terrain === 'grass') {
-                ui.eve.taskList.addTask(cell.resource ? 'extract' : 'goto', r, c, cell);
+                let task = 'goto';
+                if (cell.resource === 'rock' || cell.resource === 'tree')
+                    task = 'extract';
+                ui.eve.taskList.addTask(task, r, c, cell);
                 ui.update();
             }
         }
