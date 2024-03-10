@@ -41,5 +41,5 @@ export function drawMap(ui) {
         }
     });
 
-    // return { offset: { x: grid.offsetLeft, y: grid.offsetTop }, size: { x: grid.offsetWidth / map.width, y: grid.offsetHeight / map.height } };
+    return { offset: { x: grid.offsetLeft, y: grid.offsetTop }, size: { x: grid.offsetWidth / map.width, y: grid.offsetHeight / map.height } };
 }
