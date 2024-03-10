@@ -1,4 +1,16 @@
 
+const cellMap = new Map();
+
+function updateCellInternal(cell, cellDOM, serial) {
+    cellDOM.className = `cell ${cell.terrain}`;
+    cellDOM.innerHTML = cell.resource ? `<img src="assets/${cell.resource}_${(serial % 9) + 1}.svg" />` : '';
+}
+export function updateCell(cell) {
+    const cellDOM = cellMap.get(cell);
+    const serial = cellDOM.dataset.row * cellDOM.parentElement.children.length + cellDOM.dataset.col;
+    updateCellInternal(cell, cellDOM, serial);
+}
+
 export function drawMap(ui) {
     const map = ui.world.map;
 
@@ -14,11 +26,11 @@ export function drawMap(ui) {
 
         for (const cell of row) {
             const cellDOM = document.createElement('div');
-            cellDOM.className = `cell ${cell.terrain}`;
             cellDOM.dataset.row = Math.floor(serial / map.width);
             cellDOM.dataset.col = serial % map.width;
-            cellDOM.innerHTML = cell.resource ? `<img src="assets/${cell.resource}_${(serial % 9) + 1}.svg" />` : '';
+            updateCellInternal(cell, cellDOM, serial);
             rowDOM.appendChild(cellDOM);
+            cellMap.set(cell, cellDOM);
 
             serial++;
         }

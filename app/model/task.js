@@ -55,7 +55,6 @@ class ExtractTask extends Task {
         if (this.amount >= 1) {
             this.state = 'done';
             this.cell.resource = null;
-            // TODO: must update map
         }
     }
 }

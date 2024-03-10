@@ -1,5 +1,5 @@
 
-import { drawMap } from './map.js';
+import { drawMap, updateCell } from './map.js';
 import { drawPerson } from './person.js';
 import { updateTaskList } from './task.js';
 import { setupTimer } from './tick.js';
@@ -19,6 +19,10 @@ export class UserInterface {
     }
 
     update() {
+        for (const cell of this.world.dirtyCells)
+            updateCell(cell);
+        this.world.dirtyCells.length = 0;
+        
         for (const person of this.world.people)
             drawPerson(person, this);
         updateTaskList(this.eve.taskList);

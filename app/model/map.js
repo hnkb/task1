@@ -1,7 +1,20 @@
 
 class Cell {
     terrain = 'grass';
-    resource = null;
+    _resource = null;
+
+    constructor(world) {
+        this.world = world;
+    }
+
+    get resource() {
+        return this._resource;
+    }
+
+    set resource(value) {
+        this._resource = value;
+        this.world.dirtyCells.push(this);
+    }
 }
 
 let seed = 1234;
@@ -11,7 +24,7 @@ function seededRandom() {
 }
 
 export class Map {
-    constructor(height, width) {
+    constructor(world, height, width) {
         this.height = height;
         this.width = width;
         this.cells = [];
@@ -19,7 +32,7 @@ export class Map {
         for (let r = 0; r < this.height; r++) {
             this.cells[r] = [];
             for (let c = 0; c < this.width; c++) {
-                this.cells[r][c] = new Cell();
+                this.cells[r][c] = new Cell(world);
             }
         }
     }
