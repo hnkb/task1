@@ -6,6 +6,7 @@ export function drawPerson(person, ui) {
         const sprite = document.createElement('img');
         sprite.src = 'assets/woman.svg';
         sprite.className = 'person';
+        sprite.title = person.name;
         document.body.appendChild(sprite);
         spriteMap.set(person, sprite);
     }

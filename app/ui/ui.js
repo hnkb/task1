@@ -13,7 +13,7 @@ export class UserInterface {
     }
 
     start() {
-        this.gridSizing = drawMap(this);
+        /*this.gridSizing =*/ drawMap(this);
         setupTimer(this);
         this.update();
     }
