@@ -4,7 +4,7 @@ const spriteMap = new Map();
 export function drawPerson(person, ui) {
     if (!spriteMap.has(person)) {
         const sprite = document.createElement('img');
-        sprite.src = 'assets/woman.svg';
+        sprite.src = `assets/${person.gender}.svg`;
         sprite.className = 'person';
         sprite.title = person.name;
         document.body.appendChild(sprite);

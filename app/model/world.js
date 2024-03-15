@@ -11,8 +11,8 @@ export class World {
 
         this.taskList = new TaskList();
 
-        this.people = [new Person('Eve', 20, this)];
-        this.people.push(new Person('Adam', 20, this));
+        this.people = [new Person('Eve', 20, 'woman', this)];
+        this.people.push(new Person('Adam', 20, 'man', this));
     }
 
     tick(elapsed) {
