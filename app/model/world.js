@@ -1,5 +1,6 @@
 import { Map } from './map.js';
 import { Person } from './person.js';
+import { TaskList } from './task.js';
 
 export class World {
     dirtyCells = [];
@@ -8,7 +9,10 @@ export class World {
         this.map = new Map(this, 30, 40);
         this.map.load();
 
-        this.people = [new Person('Eve', 20)];
+        this.taskList = new TaskList();
+
+        this.people = [new Person('Eve', 20, this)];
+        this.people.push(new Person('Adam', 20, this));
     }
 
     tick(elapsed) {

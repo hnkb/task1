@@ -6,20 +6,23 @@ class Task {
         this.cell = cell;
         this.state = '';
         this.name = `Go to (${row}, ${col})`;
+        this.person = null;
     }
 
     allRequirementsAreMet() {
         return true;
     }
 
-    action(person, elapsed) {
+    action(elapsed) {
         this.state = 'done';
     }
 
-    tick(person, elapsed) {
+    tick(elapsed) {
         const task = this;
+        const person = this.person;
 
         if (task.state === 'done') return;
+        if (!person) throw new Error('Task started without a person doing it!');
 
         const travel = { x: task.col - person.col, y: task.row - person.row };
 
@@ -36,7 +39,7 @@ class Task {
         }
 
         if (task.state === 'doing')
-            task.action(person, elapsed);
+            task.action(elapsed);
     }
 }
 
@@ -50,7 +53,7 @@ class ExtractTask extends Task {
         return this.cell.resource === 'tree' || this.cell.resource === 'rock';
     }
 
-    action(person, elapsed) {
+    action(elapsed) {
         this.amount = (this.amount || 0) + elapsed / 10;
         if (this.amount >= 1) {
             this.state = 'done';
@@ -74,5 +77,24 @@ export class TaskList {
             this.tasks.push(new Task(row, col, cell));
         else
             throw new Error(`Unknown task type: ${type}`);
+    }
+
+    pickTask() {
+        const pending = this.tasks.filter(task => task.state !== 'done' && task.person === null);
+
+        for (const task of pending) {
+            task.state = '';
+        }
+    
+        for (const task of pending) {
+            if (task.allRequirementsAreMet()) {
+                return task;
+            }
+            else {
+                task.state = 'impossible';
+            }
+        }
+
+        return null;
     }
 }

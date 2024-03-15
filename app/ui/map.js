@@ -51,7 +51,7 @@ export function drawMap(ui) {
                 let task = 'goto';
                 if (cell.resource === 'rock' || cell.resource === 'tree')
                     task = 'extract';
-                ui.eve.taskList.addTask(task, r, c, cell);
+                ui.world.taskList.addTask(task, r, c, cell);
                 ui.update();
             }
         }

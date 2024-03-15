@@ -9,7 +9,6 @@ export class UserInterface {
 
     constructor(world) {
         this.world = world;
-        this.eve = world.people[0];
     }
 
     start() {
@@ -25,6 +24,6 @@ export class UserInterface {
         
         for (const person of this.world.people)
             drawPerson(person, this);
-        updateTaskList(this.eve.taskList);
+        updateTaskList(this.world.taskList);
     }
 }
